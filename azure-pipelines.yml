@@ -1,0 +1,12 @@
+steps:
+- script: git clone $(git_repo)
+- script: docker build -t $(acr)/$(tag) . 
+- script: docker login -u $(docker_user_name) -p $(docker_password) $(acr_url)
+- script: docker push $(acr)/$(tag)
+  env:
+    git_repo: $(git_repo)
+    acr: $(acr)
+    tag: $(tag)
+    docker_user_name: $(docker_user_name)
+    docker_password: $(docker_password)
+    acr_url: $(acr_url)
