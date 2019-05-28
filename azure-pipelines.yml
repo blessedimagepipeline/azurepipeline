@@ -1,5 +1,5 @@
 steps:
-- script: git clone https://github.com/blessedimagepipeline/$(git_repo).git
+- script: git clone $(git_repo)
 - script: docker build -t appsvcbuildacr.azurecr.io/$(tag) $(git_repo)
 - script: docker login -u appsvcbuildacr -p $(docker_password) appsvcbuildacr.azurecr.io
 - script: docker push appsvcbuildacr.azurecr.io/$(tag)
