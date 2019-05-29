@@ -1,6 +1,6 @@
 steps:
 - script: docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
 - script: git clone $(gitURL)
-- script: docker build -t appsvcbuildacr.azurecr.io/$(imageTag) $(gitURL)
+- script: docker build --no-cache -t appsvcbuildacr.azurecr.io/$(imageTag) $(gitURL)
 - script: docker push appsvcbuildacr.azurecr.io/$(imageTag)
 
