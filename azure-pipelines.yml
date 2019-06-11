@@ -1,12 +1,12 @@
 pool:
     vmImage: 'ubuntu-latest' 
 steps:
-    - script: docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
-    - script: git clone $(gitURL)
-    - script: cd $(repoName)
-    - script: git fetch origin
-    - script: git checkout origin/$(branchName)
     - bash: |
+        docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
+        git clone $(gitURL)
+        cd $(repoName)
+        git fetch origin
+        git checkout origin/$(branchName)
         if [[ "$(useCache)" -eq "True" ]]
         then
             docker build -t appsvcbuildacr.azurecr.io/$(imageTag) .
