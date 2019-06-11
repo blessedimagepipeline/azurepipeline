@@ -3,13 +3,14 @@ pool:
 steps:
     - script: docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
     - script: git clone $(gitURL)
+    - script: cd $(repoName)
     - script: git checkout $(branchName)
     - bash: |
         if [[ "$(useCache)" -eq "True" ]]
         then
-            docker build -t appsvcbuildacr.azurecr.io/$(imageTag) $(gitURL)
+            docker build -t appsvcbuildacr.azurecr.io/$(imageTag) .
         else
-            docker build --no-cache -t appsvcbuildacr.azurecr.io/$(imageTag) $(gitURL)
+            docker build --no-cache -t appsvcbuildacr.azurecr.io/$(imageTag) .
         fi
       timeoutInMinutes: 180
     - script: docker push appsvcbuildacr.azurecr.io/$(imageTag)
