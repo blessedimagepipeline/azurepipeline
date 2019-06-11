@@ -4,7 +4,7 @@ steps:
     - script: docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
     - script: git clone $(gitURL)
     - script: cd $(repoName)
-    - script: git checkout $(branchName)
+    - script: git checkout origin/$(branchName)
     - bash: |
         if [[ "$(useCache)" -eq "True" ]]
         then
