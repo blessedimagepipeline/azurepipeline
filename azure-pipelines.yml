@@ -3,8 +3,8 @@ pool:
 steps:
     - script: docker login -u appsvcbuildacr -p $(acrPassword) appsvcbuildacr.azurecr.io
     - script: git clone $(gitURL)
-    - script: |
-        if [ "$(useCache)" -eq "True" ]
+    - bash: |
+        if [[] "$(useCache)" -eq "True" ]
         then
             docker build -t appsvcbuildacr.azurecr.io/$(imageTag) $(gitURL)
         else
